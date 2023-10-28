@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{%block content%}
+    <h1> {{dataset.event_name}} </h1>
+    <h2> {{dataset.description}}</h2>
+    <h3> {{dataset.event_date}}</h3>
+    <h4> {{dataset.event_time}}</h4>
+    <h5> {{dataset.location.location_name}}</h5>
+{% endblock %}

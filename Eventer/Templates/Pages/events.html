@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="main row ">
+      
+      {% for data in dataset %}
+        <div class= "col-4">
+        <div class="card text-center mb-4">
+            <img src="https://t3.ftcdn.net/jpg/05/53/61/52/360_F_553615273_xqH2l9cQ6OeauJ4mbCGrCJ3CZNPcX6mF.jpg" class="card-img-top" alt="A nice photo">
+            <div class="card-body">
+              <h5 class="card-title">{{data.event_name}}</h5>
+              <p class="card-text">{{data.description}}</p>
+              <a href="{% url 'event_details' id=data.event_id %}" class="btn btn-primary">Detials</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}    
+ 
+    </div>
+{% endblock %}    
