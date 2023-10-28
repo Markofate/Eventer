@@ -4,6 +4,9 @@ from django.db import models
 class Location(models.Model):
     location_id = models.IntegerField(primary_key=True)
     location_name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.location_name
 
 class Event(models.Model):
     event_id = models.IntegerField(primary_key=True)
@@ -13,10 +16,7 @@ class Event(models.Model):
     event_time = models.TimeField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
-class User(models.Model):
-    user_id = models.IntegerField(primary_key=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    username = models.CharField(max_length=50)
+    def __str__(self):
+        return self.event_name
+    
+

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Event , Location , User
+from .models import Event , Location 
 
 # Create your views here.
 

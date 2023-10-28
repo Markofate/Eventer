@@ -2,9 +2,29 @@
 {% load static %}
 
 {%block content%}
-    <h1> {{dataset.event_name}} </h1>
-    <h2> {{dataset.description}}</h2>
-    <h3> {{dataset.event_date}}</h3>
-    <h4> {{dataset.event_time}}</h4>
-    <h5> {{dataset.location.location_name}}</h5>
+    <div class="row">
+        <div class="col-md-9">
+            <h1> {{dataset.event_name}} </h1>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="w-auto p-3 col-md-3">
+            <h1> {{dataset.description}} </h1>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h1> {{dataset.event_date}} </h1>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h1> {{dataset.event_time}} </h1>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1> {{dataset.location.location_name}} </h1>
+        </div>    
+    </div>
 {% endblock %}

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'Pages.apps.PagesConfig',#projeye ekediğimiz app leri 
     'django.contrib.admin',#böyle buraya ekliyoruz
+    'user',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
