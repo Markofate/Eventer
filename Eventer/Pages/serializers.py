@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from Pages.models import Location , Event, User
+from Pages.models import Location , Event
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -14,7 +14,4 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ('event_id','event_name', 'description','event_date','event_time','location')
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta :
-        model = User
-        fields = ('user_id','first_name', 'last_name','email','phone','username')
+
