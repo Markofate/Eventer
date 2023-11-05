@@ -1,25 +1,19 @@
 {% extends "layout.html" %}
 {% load static %}
 
-
 {% block content %}
-
 <div class="row">
     <div class="col-md-6 mx-auto">
         <div class="card">
             <div class="card-header bg-primary text-white">
-               <h4>Login</h4>
+               <h4>Create Event</h4>
             </div>
             <div class="card-body">
-                <form action="{% url 'login' %}" method="POST">
+                <form action="{% url 'create_location' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" required>
+                        <label for="location_name">Location Name</label>
+                        <input type="text" name="location_name" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>    
@@ -27,8 +21,8 @@
         </div>
     </div>    
 </div>    
+{% endblock  %}
 
-{% endblock %}
 
 <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>

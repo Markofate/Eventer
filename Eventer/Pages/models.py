@@ -1,4 +1,5 @@
 from django.db import models
+from user.models import Users
 
 # Create your models here.
 class Location(models.Model):
@@ -14,7 +15,8 @@ class Event(models.Model):
     description = models.TextField()
     event_date = models.DateField()
     event_time = models.TimeField()
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True, blank=True)
+    participants = models.ForeignKey(Users,on_delete=models.CASCADE,null=True, blank=True)
 
     def __str__(self):
         return self.event_name

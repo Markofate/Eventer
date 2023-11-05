@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser,PermissionsMixin
 
 # Create your models here.
 
 
-class Users(AbstractUser):
+class Users(AbstractUser,PermissionsMixin):
     REQUIRED_FIELDS = []
     user_id = models.IntegerField(primary_key=True)
     first_name = models.CharField(max_length=255)
