@@ -9,11 +9,13 @@
 # https://github.com/docker/awesome-compose
 services:
   server:
+    image: 'nginx'
     build:
       context: .
     ports:
       - 8000:8000
-
+    volumes: 
+        - '/var/lib/docker/volumes/Eventer-Volume/_data'
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the

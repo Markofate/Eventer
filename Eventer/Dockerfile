@@ -5,8 +5,7 @@
 # https://docs.docker.com/engine/reference/builder/
 
 ARG PYTHON_VERSION=3.12.0
-FROM python:${PYTHON_VERSION}-slim as base
-FROM python:alpine
+FROM python:${PYTHON_VERSION}-slim 
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -37,14 +36,18 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
+
+RUN usermod -u 1000 www-data
+RUN usermod -G staff www-data 
+
 # Switch to the non-privileged user to run the application.
 USER appuser
 
 # Copy the source code into the container.
 COPY . .
-
+#readolny database e yazmaya çalışıyorsun hatası
 # Expose the port that the application listens on.
-EXPOSE 80:80
+EXPOSE 8000
 
 # Run the application.
-CMD python manage.py runserver
+CMD python manage.py runserver 0.0.0.0:8000
