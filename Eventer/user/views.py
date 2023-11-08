@@ -89,7 +89,7 @@ def api_user(request):
        serializer = UserSerializer(data=request.data)
        if serializer.is_valid():
            serializer.save()
-           return Response(serializer.data, status=status.HTTP_201_CREATED)
+           return JsonResponse(serializer.data,safe=False, status=status.HTTP_201_CREATED)
        else:
            return Response(print(serializer.errors))
 

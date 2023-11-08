@@ -4,7 +4,7 @@ from .models import Event , Location
 from .serializers import EventSerializer, LocationSerializer
 from rest_framework.decorators import api_view
 from django.contrib import messages
-
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -74,34 +74,53 @@ def create_location(request):
         return render(request, 'Pages/create_location.html')
         
 
-
+@api_view(['GET','POST'])
 def api_events(request):
-    events = Event.objects.all()
     
-    serializer = EventSerializer(events, many=True)
+    if request.method == 'GET':
+        events = Event.objects.all()
     
-    return JsonResponse(serializer.data, safe=False)
-
-
-def api_events_single(request,id):
-    events = Event.objects.get(pk=id)
+        serializer = EventSerializer(events, many=True)
     
-    serializer = EventSerializer(events, many=False)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'POST':
+        
+        event_id = request.data.get('event_id')
+        event_name = request.data.get('event_name')
+        description = request.data.get('description')
+        event_date = request.data.get('event_date')
+        event_time = request.data.get('event_time')
+        location = request.data.get('location')
+        
+        Event.objects.create(event_id= event_id, event_name= event_name,
+        description= description, event_date= event_date,event_time= event_time,
+        location_id= location)
+        
+        return JsonResponse(request.data, safe=False)
+        
+         
+# def api_events_single(request,id):
+#     if request.method == 'GET':
+#         events = Event.objects.get(pk=id) tek bir tane çağırmak istiyorsak id ile çağrabiliriz
     
-    return JsonResponse(serializer.data, safe=False)
+#         serializer = EventSerializer(events, many=False)
+    
+#         return JsonResponse(serializer.data, safe=False)
 
-
+@api_view(['GET','POST'])
 def api_locations(request):
-    location = Location.objects.all()
+    if request.method == 'GET':
+        location = Location.objects.all()
     
-    serializer = LocationSerializer(location, many=True)
+        serializer = LocationSerializer(location, many=True)
     
-    return JsonResponse(serializer.data, safe=False)
-
-
-def api_locations_single(request,id):
-    location = Location.objects.get(pk=id)
-    
-    serializer = LocationSerializer(location, many=False)
-    
-    return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'POST':
+        
+        location_id = request.data.get('location_id')
+        location_name = request.data.get('location_name')
+        
+        Location.objects.create(location_id= location_id, location_name= location_name)
+        
+        return JsonResponse(request.data, safe=False)
+        
