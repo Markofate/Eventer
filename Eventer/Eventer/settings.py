@@ -45,7 +45,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'user.Users'
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -86,8 +89,12 @@ WSGI_APPLICATION = 'Eventer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'eventer',
+        'USER': 'root',
+        'PASSWORD': '123123',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
@@ -130,11 +137,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {

@@ -10,18 +10,20 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
+from .forms import userForm
 
 
 # Create your views here.
 
 
 def login(request):
+    form = userForm()
     if request.method == 'POST':
         username = request.POST["username"]
         password = request.POST["password"]
         
-        
         user = auth.authenticate(username= username, password= password)
+        
         if user is not None:
             auth.login(request, user)
             messages.add_message(request, messages.SUCCESS, "Logged in succesfully")
@@ -34,6 +36,7 @@ def login(request):
 
 
 def register(request):
+    form = userForm()
     if request.method == 'POST':
         print("Submitted")
         username = request.POST["username"]
@@ -43,6 +46,9 @@ def register(request):
         phone = request.POST["phone"]
         password = request.POST["password"]
         repassword = request.POST["repassword"]
+        
+        form = userForm(request.POST)
+        
         #USER KAYDI YAPILACAK #kendi user modelimi kullanıyorum ama django modeline de geçiş yapılabilir
         if password==repassword:
             #username control
@@ -54,13 +60,15 @@ def register(request):
                 messages.add_message(request, messages.WARNING, "Email is already used")
                 return redirect('register')
             else:
-                hashed_password = make_password(password)   
-                Users.objects.create(username= username,
-                    first_name= first_name, last_name= last_name,
-                    email= email, phone=phone, password= hashed_password)
-                    
-                messages.add_message(request, messages.SUCCESS, "User created")
-                return redirect('login')         
+               if form.is_valid():
+                actual_save = form.save(commit=False)
+                actual_save.password = make_password(form.cleaned_data["password"])
+                actual_save.status = 1
+                actual_save.save()
+                return redirect('login')
+               else:     
+                   print("form is not valid")
+                   return redirect('register')  
         else:
             print(password,repassword)
             messages.add_message(request, messages.ERROR, "Passwords do not match")
@@ -99,5 +107,3 @@ def api_user_single(request,id):
     serializer = UserSerializer(users,many=False)
     
     return JsonResponse(serializer.data,safe=False)
-    
-    

@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser,PermissionsMixin
 
 class Users(AbstractUser,PermissionsMixin):
     REQUIRED_FIELDS = []
-    user_id = models.IntegerField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField()

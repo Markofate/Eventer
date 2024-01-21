@@ -1,3 +1,24 @@
-.footer {
-    background-color: #f5f5f5;
+body {
+    text-align: center;
+    background-color: lightblue;
+}
+img#index_image {
+    border-radius: 8px;
+}
+
+img#event_image {
+    border-radius: 4px;
+}
+
+div.form-group {  
+    width: 700px; 
+}
+div.card-body{
+    background-color: burlywood;
+}
+div#card{
+    background-color: burlywood;
+}
+a#delete_button{
+    background-color: red;
 }

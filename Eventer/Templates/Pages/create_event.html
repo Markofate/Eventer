@@ -3,13 +3,13 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6 mx-auto">
+    <div class="col-md-auto mx-auto">
         <div class="card">
             <div class="card-header bg-primary text-white">
                <h4>Create Event</h4>
             </div>
             <div class="card-body">
-                <form action="{% url 'create_event' %}" method="POST">
+                <form action="{% url 'create_event' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="event_name">Event-Name</label>
@@ -28,7 +28,11 @@
                         <input type="time" name="event_time" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="event_date">Location</label>
+                        <label for="event_img">Event-Image</label>
+                        <input type="file" name="event_img" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
                         <select name="location_id" class="form-control">
                             {% for location in locations %}
                             <option value="{{ location.location_id }}">{{ location.location_name }}</option>

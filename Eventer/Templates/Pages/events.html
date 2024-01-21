@@ -1,26 +1,33 @@
-{% extends "layout.html" %}
-{% load static %}
+  {% extends "layout.html" %}
+  {% load static %}
 
-{% block content %}
-    <div class="main row ">
-      
-      {% for data in dataset %}
-        <div class= "col-4">
-        <div class="card text-center mb-4">
-            <img src="https://t3.ftcdn.net/jpg/05/53/61/52/360_F_553615273_xqH2l9cQ6OeauJ4mbCGrCJ3CZNPcX6mF.jpg" class="card-img-top" alt="A nice photo">
-            <div class="card-body">
-              <h5 class="card-title">{{data.event_name}}</h5>
-              <p class="card-text">{{data.description}}</p>
-              <a href="{% url 'event_details' id=data.event_id %}" class="btn btn-primary">Detials</a>
+  {% block content %}
+      <div class="main row">
+        
+        {% for data in dataset %}
+          <div class= "col-4">
+          <div id="card" class="card text-center mb-4">
+            {% if data.event_img %}
+              <img id="event_image" src="{{data.event_img.url}}" class="card-img-top" alt="A nice photo">
+            {% else %}
+              <img src="https://t3.ftcdn.net/jpg/05/53/61/52/360_F_553615273_xqH2l9cQ6OeauJ4mbCGrCJ3CZNPcX6mF.jpg" class="card-img-top" alt="A nice photo">
+            {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">{{data.event_name}}</h5>
+                <p class="card-text">{{data.description}}</p>
+                <a href="{% url 'event_details' id=data.event_id %}" class="btn btn-primary">Details</a>
+                {% if user == data.creator or user.is_superuser%}
+                <a href="{% url "event_delete" id=data.event_id %}" method="POST" class="btn btn-primary" id="delete_button">Delete</a>
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
-      {% endfor %}    
- 
-    </div>
-{% endblock %}  
+        {% endfor %}    
+  
+      </div>
+  {% endblock %}  
 
 
-<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
